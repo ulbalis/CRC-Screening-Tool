@@ -15,10 +15,11 @@ A self-contained Jupyter Notebook pipeline for screening colorectal adenocarcino
 | 3. **Score Tiles** | Run each tile through the trained model | Tile folder + `.h5` model | `tile_scores.csv` |
 | 4. **Evaluate** | Compute ROC curve, AUC, and summary statistics | `tile_scores.csv` | ROC figure + stats |
 | 5. **Click-to-Predict** | Click on the slide to predict any region interactively | `.svs` file + `.h5` model | Live prediction |
-| 6. **Case-Level Analysis** | Classify cases using top-K tile thresholding | Scored slide folders | Confusion matrix |
-| 7. **Fine-Tune Model** | Extend the model with new labeled tiles | Tile folder + `.h5` model | Fine-tuned `.h5` model |
+| 6. **Heatmap Overlay** | Visualize tile predictions on the slide with optional spatial filtering | `.svs` file + `tile_scores.csv` | Heatmap figure |
+| 7. **Case-Level Analysis** | Classify cases using top-K tile thresholding | Scored slide folders | Confusion matrix |
+| 8. **Fine-Tune Model** | Extend the model with new labeled tiles | Tile folder + `.h5` model | Fine-tuned `.h5` model |
 
-Steps 1–4 form the core pipeline. Step 5 provides interactive exploration. Step 6 performs case-level classification. Step 7 allows end users to improve the model with locally accumulated cases.
+Steps 1–4 form the core pipeline. Step 5 provides interactive exploration. Step 6 overlays tile-level predictions on the slide as a color-coded heatmap, with an optional morphological opening filter that removes isolated false positive tiles. Step 7 performs case-level classification. Step 8 allows end users to improve the model with locally accumulated cases.
 
 ---
 
@@ -80,7 +81,7 @@ sample_data/
 
 ```
 CRC-Screening-Tool/
-├── CRC_Screening_Tool.ipynb    # Main notebook (Steps 1–7)
+├── CRC_Screening_Tool.ipynb    # Main notebook (Steps 1–8)
 ├── model/
 │   ├── model.h5                # Pre-trained MobileNet model
 │   └── labels.txt              # Class labels (Positive, Negative)
@@ -91,11 +92,12 @@ CRC-Screening-Tool/
     ├── __init__.py
     ├── batch_process.py        # Headless multi-slide processing
     ├── case_score.py           # Case-level top-K classification
-    ├── finetune_ui.py          # Step 7: Fine-tuning UI
+    ├── finetune_ui.py          # Step 8: Fine-tuning UI
+    ├── heatmap_ui.py           # Step 6: Heatmap overlay UI
     ├── tile_export.py          # Slide reading and tile extraction
     ├── tile_opening.py         # Morphological opening (erosion/dilation)
     ├── tile_score.py           # Model inference and ROC computation
-    ├── ui_dashboards.py        # Steps 1–6 interactive widgets
+    ├── ui_dashboards.py        # Steps 1–5, 7 interactive widgets
     └── viewer.py               # OpenSlide viewport reader
 ```
 
@@ -111,9 +113,22 @@ CRC-Screening-Tool/
 
 ---
 
+## Heatmap Overlay & Morphological Opening
+
+Step 6 visualizes tile-level malignancy predictions directly on the whole slide image. Each tile is drawn as a semi-transparent colored rectangle — red for malignant, green for benign — with intensity proportional to the model's confidence.
+
+An optional morphological opening filter can be applied to remove isolated false positive tiles:
+- **Erosion:** tiles with fewer than a specified number of positive neighbors are removed
+- **Dilation:** edges of surviving malignant clusters are restored
+- Applied twice by default (2× erosion followed by 2× dilation)
+
+This spatial filtering exploits the fact that true adenocarcinoma typically occupies multiple adjacent tiles, while false positives from inflammation, staining artifacts, or tissue folds tend to appear as isolated single-tile events.
+
+---
+
 ## Fine-Tuning
 
-Step 7 in the notebook allows end users to extend the model with new labeled tiles. The fine-tuning process:
+Step 8 in the notebook allows end users to extend the model with new labeled tiles. The fine-tuning process:
 - Freezes the convolutional backbone (only the classification head is retrained)
 - Uses AdamW optimizer with cosine learning rate decay
 - Applies class weights to handle imbalanced datasets
