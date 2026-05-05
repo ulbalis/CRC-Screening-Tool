@@ -1,11 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
-sample_data/tiles/positive/
-sample_data/tiles/negative/
-sample_data/finetune_tile/
-sample_data/wsi/positive/
-sample_data/wsi/negative/
+sample_data/
 iframe_figures/
 *.svs
 combined_tiles/
@@ -14,6 +10,6 @@ test_existing/
 test_new/
 _finetune_temp/
 finetuned_model*/
-.DS_Store.ipynb_checkpoints/
 .DS_Store
 .ipynb_checkpoints/
+*.zip

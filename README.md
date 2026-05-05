@@ -54,26 +54,21 @@ The setup script will:
 
 ### Sample Data
 
-The sample WSI slides and tile images are hosted separately due to file size. Download them from:
+The sample WSI slides and tile images are hosted separately due to file size. 
 
-**[OSF Project Link]** *(link to be added upon publication)*
+1. Download the data archive here: **[CRC_Screening_Tool_sample_data.zip](https://www.dropbox.com/scl/fi/5h3obiaf8v6ktxo8zexti/CRC_Screening_Tool_sample_data.zip?rlkey=y08b60wrfni3rldivjgmnqdif&st=alh0sw49&dl=0)**
+2. Unzip the downloaded file.
+3. Place the extracted `sample_data` folder directly into the root directory of this project.
 
-After downloading, place the data in the `sample_data/` directory:
-```
-sample_data/
-├── tiles/
-│   ├── positive/
-│   └── negative/
-└── wsi/
-    ├── positive/
-    │   └── {slide_name}/
-    │       ├── {slide_name}.svs
-    │       └── tiles/
-    └── negative/
-        └── {slide_name}/
-            ├── {slide_name}.svs
-            └── tiles/
-```
+Your structure should look like this:
+```text
+CRC-Screening-Tool/
+├── sample_data/
+│   ├── finetune_tile/
+│   ├── tiles/
+│   └── wsi/
+├── CRC_Screening_Tool.ipynb
+...
 
 ---
 
