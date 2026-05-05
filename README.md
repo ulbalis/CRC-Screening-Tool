@@ -71,6 +71,7 @@ CRC-Screening-Tool/
 ...
 
 ---
+```
 
 ## Project Structure
 
