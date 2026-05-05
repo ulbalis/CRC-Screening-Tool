@@ -30,6 +30,25 @@ Steps 1–4 form the core pipeline. Step 5 provides interactive exploration. Ste
 - Python 3.10 or 3.11
 - macOS or Windows
 
+### Sample Data
+
+The sample WSI slides and tile images are hosted separately due to file size. 
+
+1. Download the data archive here: **[CRC_Screening_Tool_sample_data.zip](https://www.dropbox.com/scl/fi/5h3obiaf8v6ktxo8zexti/CRC_Screening_Tool_sample_data.zip?rlkey=y08b60wrfni3rldivjgmnqdif&st=alh0sw49&dl=0)**
+2. Unzip the downloaded file.
+3. Place the extracted `sample_data` folder directly into the root directory of this project.
+
+Your structure should look like this:
+```text
+CRC-Screening-Tool/
+├── sample_data/
+│   ├── finetune_tile/
+│   ├── tiles/
+│   └── wsi/
+├── CRC_Screening_Tool.ipynb
+...
+```
+
 ### Setup
 
 **macOS:**
@@ -52,24 +71,6 @@ The setup script will:
 3. Register the Jupyter kernel
 4. Launch the notebook in your browser
 
-### Sample Data
-
-The sample WSI slides and tile images are hosted separately due to file size. 
-
-1. Download the data archive here: **[CRC_Screening_Tool_sample_data.zip](https://www.dropbox.com/scl/fi/5h3obiaf8v6ktxo8zexti/CRC_Screening_Tool_sample_data.zip?rlkey=y08b60wrfni3rldivjgmnqdif&st=alh0sw49&dl=0)**
-2. Unzip the downloaded file.
-3. Place the extracted `sample_data` folder directly into the root directory of this project.
-
-Your structure should look like this:
-```text
-CRC-Screening-Tool/
-├── sample_data/
-│   ├── finetune_tile/
-│   ├── tiles/
-│   └── wsi/
-├── CRC_Screening_Tool.ipynb
-...
-```
 
 ---
 
