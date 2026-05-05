@@ -69,9 +69,10 @@ CRC-Screening-Tool/
 │   └── wsi/
 ├── CRC_Screening_Tool.ipynb
 ...
+```
 
 ---
-```
+
 
 ## Project Structure
 
